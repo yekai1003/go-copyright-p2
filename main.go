@@ -6,7 +6,9 @@ import (
 	"go-copyright-p2/configs"
 	"go-copyright-p2/routes"
 
+	"github.com/gorilla/sessions"
 	"github.com/labstack/echo"
+	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/middleware"
 )
 
@@ -28,6 +30,7 @@ func main() {
 	EchoObj = echo.New()             //创建echo对象
 	EchoObj.Use(middleware.Logger()) //安装日志中间件
 	EchoObj.Use(middleware.Recover())
+	EchoObj.Use(session.Middleware(sessions.NewCookieStore([]byte("secret"))))
 	EchoObj.Use(middleware.GzipWithConfig(middleware.GzipConfig{
 		Level: 5,
 	}))
@@ -35,5 +38,7 @@ func main() {
 	staticFile() //静态文件处理调用
 
 	EchoObj.GET("/ping", routes.PingHandler)                        //路由测试函数
+	EchoObj.POST("/account", routes.Register)                       //注册账户
+	EchoObj.GET("/session", routes.GetSession)                      //session获取
 	EchoObj.Logger.Fatal(EchoObj.Start(configs.Config.Common.Port)) //启动服务
 }

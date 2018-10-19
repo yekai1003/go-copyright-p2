@@ -5,9 +5,16 @@ import (
 	"fmt"
 	"go-copyright-p2/configs"
 	_ "strconv"
-	"time"
 
 	_ "github.com/go-sql-driver/mysql"
+)
+
+type (
+	Account struct {
+		Email      string `json:"email"`
+		IdentityID string `json:"identity_id"`
+		UserName   string `json:"username"`
+	}
 )
 
 //数据库连接的全局变量
@@ -16,7 +23,7 @@ var DBConn *sql.DB
 //init函数是本包被其他文件引用时自动执行，并且整个工程只会执行一次
 func init() {
 	fmt.Println("call dbs.Init", configs.Config)
-	DBConn = InitDB(configs.Config.Db.ConnStr, configs.Config.Db.Driver)
+	DBConn = InitDB(configs.Config.Db.Connstr, configs.Config.Db.Driver)
 }
 
 //初始化数据库连接

@@ -17,6 +17,7 @@ var (
 type ServerConfig struct {
 	Common *CommonConfig
 	Db     *DbConfig
+	Eth    *EthConfig
 }
 
 type CommonConfig struct {
@@ -27,6 +28,13 @@ type CommonConfig struct {
 type DbConfig struct {
 	Driver  string
 	Connstr string
+}
+type EthConfig struct {
+	Connstr    string
+	Keydir     string
+	Foundation string
+	PxcAddr    string
+	PxaAddr    string
 }
 
 func usage() {
