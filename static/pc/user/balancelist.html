@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心页面</title>
+    <link rel="stylesheet" href="../assets/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/balancelist.css">
+</head>
+<body>
+<div CLASS="layout">
+    <div class="header">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">原本</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li > <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">认证原创</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="./articleauthor.html">认证文章</a></li>
+                                <li><a href="./imageAuthor.html">认证图片</a></li>
+                            </ul></li>
+                        <li class="active"><a href="./balancelist.html">我的资产</a></li>
+                        <li><a href="#">我的转载</a></li>
+                        <li><a href="#">转载监测</a></li>
+                        <li><a href="#">证据管理</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#" class="glyphicon glyphicon-asterisk"></a></li>
+                        <li><a href="#" class="glyphicon glyphicon-search"></a></li>
+                        <li><a href="#" class="glyphicon ">DNA</a></li>
+                        <li><a href="#" class="glyphicon glyphicon-user"> </a></li>
+                        <li><a href="#">我的</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+          <ul class="containerlist">
+          </ul>
+    </div>
+</div>
+<script src="../assets/jquery/jquery.js"></script>
+<script src="../assets/bootstrap/dist/js/bootstrap.js"></script>
+<script src="../assets/template-native/template-native.js"></script>
+<script type="text/template" id="templateId">
+    <%for(var i=0;i<data.contents.length;i++){%>
+        <li>
+            <div>
+                <img src="/content/<%=data.contents[i].title%>" alt="">
+                <div>
+                    
+                    <input type="text" placeholder="份数">
+                    <input type="text" placeholder="价格">
+                    <a class="account_event" href="javacript:;" data-tokenid="<%=data.contents[i].token_id%>" data-account="<%=data.contents[i].content_hash%>">拍卖</a></div>
+            </div>
+        </li>
+    <%}%>
+</script>
+<script>
+        $(function(){
+              var pdj= {
+                  init: function () {
+                       this.checkUser();
+                       this.initAuction();
+                  },
+                  checkUser: function () {
+                      var _this=this;
+                      $.ajax({
+                          url:"/session",
+                          type:"get",
+                          success:function(data){
+                              if(data.errno!=0){
+                                  window.location.href="../";
+                              }else{
+                                   _this.queryBalance();
+                              }
+                          }
+                      });
+                  },
+                  initAuction:function(){
+                        $(".containerlist").on("click",".account_event",function(){
+                                var number=parseInt($(this).prev().prev().val());
+                                var price=parseInt($(this).prev().val());
+                                var accounthash=this.dataset['account'];
+								  var tokenid=parseInt(this.dataset['tokenid']);
+                                
+                                var obj={
+                                    content_hash:accounthash,
+                                    price:price,
+                                    percent:number,
+									  token_id:tokenid
+
+                                };
+								  console.log(obj)
+                                var strparams=JSON.stringify(obj);
+                                $.ajax({
+                                     type:"post",
+                                     url:"/auction",
+                                     contentType:"application/json",
+                                     data:strparams,
+                                     success:function(data){
+											window.location.href = "auctionlist.html";
+                                     }
+                                })
+                                
+
+
+                        })
+                  },
+                  queryBalance:function(){
+                      $.ajax({
+                           url:"/content",
+                           type:"get",
+                           success:function(data){
+                               
+                                var html=template("templateId",data);
+                                $(".containerlist").html(html);
+                           }
+                      })
+                  }
+              }
+              pdj.init();
+        });
+</script>
+</body>
+</html>
