@@ -45,5 +45,7 @@ func main() {
 	EchoObj.GET("/session", routes.GetSession)                      //session获取
 	EchoObj.POST("/login", routes.Login)                            //登陆
 	EchoObj.POST("/content", routes.Upload)                         //上传图片
+	EchoObj.GET("/content", routes.GetContents)                     //查看当前用户图片
+	EchoObj.GET("/content/:title", routes.GetContent)               //查看单个图片
 	EchoObj.Logger.Fatal(EchoObj.Start(configs.Config.Common.Port)) //启动服务
 }

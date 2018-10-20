@@ -18,6 +18,8 @@ import (
 	"github.com/labstack/echo-contrib/session"
 )
 
+const PAGE_MAX_PIC = 5
+
 func PingHandler(c echo.Context) error {
 
 	return c.String(http.StatusOK, "pong")
@@ -186,5 +188,56 @@ func GetSession(c echo.Context) error {
 		resp.Errno = utils.RECODE_SESSIONERR
 		return err
 	}
+	return nil
+}
+
+//select content_hash,title,token_id from content a,account_content b where a.content_hash=b.content_hash and address=''
+//查看用户所有图片
+func GetContents(c echo.Context) error {
+	var resp utils.Resp
+	resp.Errno = utils.RECODE_OK
+	defer utils.ResponseData(c, &resp)
+	//处理session
+	sess, err := session.Get("session", c)
+	if err != nil {
+		fmt.Println("failed to get session")
+		resp.Errno = utils.RECODE_SESSIONERR
+		return err
+	}
+	address := sess.Values["address"]
+	if address == nil {
+		fmt.Println("failed to get session,address is nil")
+		resp.Errno = utils.RECODE_SESSIONERR
+		return err
+	}
+	//查询数据库
+	sql := fmt.Sprintf("select a.content_hash,title,token_id from content a,account_content b where a.content_hash=b.content_hash and address='%s'", address)
+	fmt.Println(sql)
+	contents, num, err := dbs.DBQuery(sql)
+	if err != nil || num <= 0 {
+		fmt.Println("failed to query contents", err)
+		resp.Errno = utils.RECODE_DBERR
+		return err
+	}
+	total_page := int(num)/PAGE_MAX_PIC + 1
+	current_page := 1
+	mapResp := make(map[string]interface{})
+	mapResp["total_page"] = total_page
+	mapResp["current_page"] = current_page
+	mapResp["contents"] = contents
+
+	resp.Data = mapResp
+
+	return nil
+}
+
+//查看单个图片
+func GetContent(c echo.Context) error {
+	content := &dbs.Content{}
+	content.Title = c.Param("title")
+	fmt.Println("get title ", content.Title)
+	//最好查数据库获得文件路径
+	content.Content = "static/photo/" + content.Title
+	http.ServeFile(c.Response(), c.Request(), content.Content)
 	return nil
 }
