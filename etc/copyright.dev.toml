@@ -5,10 +5,10 @@ driver  = "mysql"
 connstr = "root:root@tcp(127.0.0.1:3306)/copyright?charset=utf8"
 [eth]
 connstr = "http://localhost:8545"
-keydir = "xxx"
-foundation = "xxx"
-pxcaddr = "xxx"
-pxaaddr = "xxx"
+keydir = "/Users/yk/ethdev/ethdata/dev/data/keystore"
+foundation = "0x3bf47cd6d8587374b891545fa1f08e196bd6c135"
+pxcaddr = "0x6CE0a9Db93849654D486a678203634bE0212Aed2"
+pxaaddr = "0xac7a464c8b538b7e3bc5ac90b313d6a9e401963c"
 
 
 

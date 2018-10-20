@@ -1,8 +1,11 @@
 package routes
 
 import (
+	"crypto/sha256"
+	"errors"
 	"fmt"
 	"net/http"
+	"os"
 
 	"go-copyright-p2/dbs"
 	"go-copyright-p2/eths"
@@ -106,6 +109,62 @@ func Login(c echo.Context) error {
 	}
 	sess.Values["address"] = rows["address"]
 	sess.Save(c.Request(), c.Response())
+	return nil
+}
+
+//上传图片功能
+func Upload(c echo.Context) error {
+	//1. 响应数据结构初始化
+	var resp utils.Resp
+	resp.Errno = utils.RECODE_OK
+	defer utils.ResponseData(c, &resp)
+
+	//2. 解析数据
+	content := &dbs.Content{}
+
+	h, err := c.FormFile("fileName")
+	if err != nil {
+		fmt.Println("failed to FormFile ", err)
+		resp.Errno = utils.RECODE_PARAMERR
+		return err
+	}
+	src, err := h.Open()
+	defer src.Close()
+	content.Content = "static/photo/" + h.Filename
+	dst, err := os.Create(content.Content)
+	if err != nil {
+		fmt.Println("failed to create file ", err, content.Content)
+		resp.Errno = utils.RECODE_IOERR
+		return err
+	}
+	defer dst.Close()
+	//计算hash
+	cData := make([]byte, h.Size)
+	n, err := src.Read(cData)
+	if err != nil || h.Size != int64(n) {
+		resp.Errno = utils.RECODE_IOERR
+		return err
+	}
+	content.ContentHash = fmt.Sprintf("%x", sha256.Sum256(cData))
+	dst.Write(cData)
+	content.Title = h.Filename
+
+	//写文件
+
+	//3. 操作mysql-新增数据
+	content.AddContent()
+
+	//操作以太坊
+
+	sess, _ := session.Get("session", c)
+	fromAddr, ok := sess.Values["address"].(string)
+	if fromAddr == "" || !ok {
+		resp.Errno = utils.RECODE_SESSIONERR
+		return errors.New("no session")
+	}
+	//UploadPic(from, pass, hash, data string)
+	go eths.UploadPic(fromAddr, "yekai", content.ContentHash, content.Title)
+
 	return nil
 }
 

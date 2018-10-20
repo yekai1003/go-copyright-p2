@@ -41,5 +41,6 @@ func main() {
 	EchoObj.POST("/account", routes.Register)                       //注册账户
 	EchoObj.GET("/session", routes.GetSession)                      //session获取
 	EchoObj.POST("/login", routes.Login)                            //登陆
+	EchoObj.POST("/content", routes.Upload)                         //上传图片
 	EchoObj.Logger.Fatal(EchoObj.Start(configs.Config.Common.Port)) //启动服务
 }

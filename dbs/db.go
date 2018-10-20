@@ -15,6 +15,12 @@ type (
 		IdentityID string `json:"identity_id"`
 		UserName   string `json:"username"`
 	}
+
+	Content struct {
+		Title       string `json:"title"`
+		Content     string `json:"content"`
+		ContentHash string `json:"content_hash"`
+	}
 )
 
 //数据库连接的全局变量
@@ -87,4 +93,15 @@ func Create(sql string) (int64, error) {
 		return -1, err
 	}
 	return res.LastInsertId()
+}
+
+func (ctx *Content) AddContent() error {
+	res, err := DBConn.Exec("insert into content(title,content,content_hash) values(?,?,?)", ctx.Title, ctx.Content, ctx.ContentHash)
+	if err != nil {
+		fmt.Println("failed to insert content ", err)
+		return err
+	}
+	id, err := res.LastInsertId()
+	fmt.Println("id====", id)
+	return err
 }
