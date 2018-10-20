@@ -94,7 +94,7 @@ method | GET
 
 名称 | 说明
 ---|---
-url | /account
+url | /login
 method | POST
 请求数据 | json:identity_id,username
 响应数据 | json:errno,errmsg

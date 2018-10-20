@@ -40,5 +40,6 @@ func main() {
 	EchoObj.GET("/ping", routes.PingHandler)                        //路由测试函数
 	EchoObj.POST("/account", routes.Register)                       //注册账户
 	EchoObj.GET("/session", routes.GetSession)                      //session获取
+	EchoObj.GET("/session", routes.GetSession)                      //登陆
 	EchoObj.Logger.Fatal(EchoObj.Start(configs.Config.Common.Port)) //启动服务
 }
