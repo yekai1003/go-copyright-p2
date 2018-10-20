@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"go-copyright-p2/configs"
+	"go-copyright-p2/eths"
 	"go-copyright-p2/routes"
 
 	"github.com/gorilla/sessions"
@@ -34,6 +35,8 @@ func main() {
 	EchoObj.Use(middleware.GzipWithConfig(middleware.GzipConfig{
 		Level: 5,
 	}))
+
+	go eths.EventSubscribe("ws://localhost:8546", configs.Config.Eth.PxaAddr)
 
 	staticFile() //静态文件处理调用
 

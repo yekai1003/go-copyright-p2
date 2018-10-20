@@ -16,7 +16,7 @@ import (
 )
 
 // PxaABI is the input ABI used to generate the binding from.
-const PxaABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_owner\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"_operator\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"_approved\",\"type\":\"bool\"}],\"name\":\"ApprovalForAll\",\"type\":\"event\"},{\"constant\":false,\"inputs\":[{\"name\":\"_approved\",\"type\":\"address\"},{\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_hash\",\"type\":\"string\"},{\"name\":\"_price\",\"type\":\"uint256\"},{\"name\":\"_weight\",\"type\":\"uint256\"},{\"name\":\"_data\",\"type\":\"string\"}],\"name\":\"mint\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_from\",\"type\":\"address\"},{\"name\":\"_to\",\"type\":\"address\"},{\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"safeTransferFrom\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_from\",\"type\":\"address\"},{\"name\":\"_to\",\"type\":\"address\"},{\"name\":\"_tokenId\",\"type\":\"uint256\"},{\"name\":\"_data\",\"type\":\"bytes\"}],\"name\":\"safeTransferFrom\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_operator\",\"type\":\"address\"},{\"name\":\"_approved\",\"type\":\"bool\"}],\"name\":\"setApprovalForAll\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_tokenId\",\"type\":\"uint256\"},{\"name\":\"_weight\",\"type\":\"uint256\"},{\"name\":\"_buyer\",\"type\":\"address\"}],\"name\":\"splitAsset\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"_to\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_owner\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"_approved\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"constant\":false,\"inputs\":[{\"name\":\"_from\",\"type\":\"address\"},{\"name\":\"_to\",\"type\":\"address\"},{\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"assets\",\"outputs\":[{\"name\":\"contentHash\",\"type\":\"string\"},{\"name\":\"price\",\"type\":\"uint256\"},{\"name\":\"weight\",\"type\":\"uint256\"},{\"name\":\"metaData\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_owner\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"foundation\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"getApproved\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getPXCAddr\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_owner\",\"type\":\"address\"}],\"name\":\"getPXCBalance\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_owner\",\"type\":\"address\"},{\"name\":\"_operator\",\"type\":\"address\"}],\"name\":\"isApprovedForAll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"ownerOf\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]"
+const PxaABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_owner\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"_operator\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"_approved\",\"type\":\"bool\"}],\"name\":\"ApprovalForAll\",\"type\":\"event\"},{\"constant\":false,\"inputs\":[{\"name\":\"_approved\",\"type\":\"address\"},{\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_hash\",\"type\":\"bytes32\"},{\"name\":\"_price\",\"type\":\"uint256\"},{\"name\":\"_weight\",\"type\":\"uint256\"},{\"name\":\"_data\",\"type\":\"string\"}],\"name\":\"mint\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_from\",\"type\":\"address\"},{\"name\":\"_to\",\"type\":\"address\"},{\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"safeTransferFrom\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_from\",\"type\":\"address\"},{\"name\":\"_to\",\"type\":\"address\"},{\"name\":\"_tokenId\",\"type\":\"uint256\"},{\"name\":\"_data\",\"type\":\"bytes\"}],\"name\":\"safeTransferFrom\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_owner\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"_approved\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"_hash\",\"type\":\"bytes32\"},{\"indexed\":false,\"name\":\"_owner\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"NewAsset\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"_to\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"constant\":false,\"inputs\":[{\"name\":\"_operator\",\"type\":\"address\"},{\"name\":\"_approved\",\"type\":\"bool\"}],\"name\":\"setApprovalForAll\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_tokenId\",\"type\":\"uint256\"},{\"name\":\"_weight\",\"type\":\"uint256\"},{\"name\":\"_buyer\",\"type\":\"address\"}],\"name\":\"splitAsset\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_from\",\"type\":\"address\"},{\"name\":\"_to\",\"type\":\"address\"},{\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"assets\",\"outputs\":[{\"name\":\"contentHash\",\"type\":\"bytes32\"},{\"name\":\"price\",\"type\":\"uint256\"},{\"name\":\"weight\",\"type\":\"uint256\"},{\"name\":\"metaData\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_owner\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"foundation\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"getApproved\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getPXCAddr\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_owner\",\"type\":\"address\"}],\"name\":\"getPXCBalance\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_owner\",\"type\":\"address\"},{\"name\":\"_operator\",\"type\":\"address\"}],\"name\":\"isApprovedForAll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"ownerOf\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]"
 
 // Pxa is an auto generated Go binding around an Ethereum contract.
 type Pxa struct {
@@ -162,15 +162,15 @@ func (_Pxa *PxaTransactorRaw) Transact(opts *bind.TransactOpts, method string, p
 
 // Assets is a free data retrieval call binding the contract method 0xcf35bdd0.
 //
-// Solidity: function assets( uint256) constant returns(contentHash string, price uint256, weight uint256, metaData string)
+// Solidity: function assets( uint256) constant returns(contentHash bytes32, price uint256, weight uint256, metaData string)
 func (_Pxa *PxaCaller) Assets(opts *bind.CallOpts, arg0 *big.Int) (struct {
-	ContentHash string
+	ContentHash [32]byte
 	Price       *big.Int
 	Weight      *big.Int
 	MetaData    string
 }, error) {
 	ret := new(struct {
-		ContentHash string
+		ContentHash [32]byte
 		Price       *big.Int
 		Weight      *big.Int
 		MetaData    string
@@ -182,9 +182,9 @@ func (_Pxa *PxaCaller) Assets(opts *bind.CallOpts, arg0 *big.Int) (struct {
 
 // Assets is a free data retrieval call binding the contract method 0xcf35bdd0.
 //
-// Solidity: function assets( uint256) constant returns(contentHash string, price uint256, weight uint256, metaData string)
+// Solidity: function assets( uint256) constant returns(contentHash bytes32, price uint256, weight uint256, metaData string)
 func (_Pxa *PxaSession) Assets(arg0 *big.Int) (struct {
-	ContentHash string
+	ContentHash [32]byte
 	Price       *big.Int
 	Weight      *big.Int
 	MetaData    string
@@ -194,9 +194,9 @@ func (_Pxa *PxaSession) Assets(arg0 *big.Int) (struct {
 
 // Assets is a free data retrieval call binding the contract method 0xcf35bdd0.
 //
-// Solidity: function assets( uint256) constant returns(contentHash string, price uint256, weight uint256, metaData string)
+// Solidity: function assets( uint256) constant returns(contentHash bytes32, price uint256, weight uint256, metaData string)
 func (_Pxa *PxaCallerSession) Assets(arg0 *big.Int) (struct {
-	ContentHash string
+	ContentHash [32]byte
 	Price       *big.Int
 	Weight      *big.Int
 	MetaData    string
@@ -407,24 +407,24 @@ func (_Pxa *PxaTransactorSession) Approve(_approved common.Address, _tokenId *bi
 	return _Pxa.Contract.Approve(&_Pxa.TransactOpts, _approved, _tokenId)
 }
 
-// Mint is a paid mutator transaction binding the contract method 0x2ed2a5c0.
+// Mint is a paid mutator transaction binding the contract method 0x5fd8cb69.
 //
-// Solidity: function mint(_hash string, _price uint256, _weight uint256, _data string) returns()
-func (_Pxa *PxaTransactor) Mint(opts *bind.TransactOpts, _hash string, _price *big.Int, _weight *big.Int, _data string) (*types.Transaction, error) {
+// Solidity: function mint(_hash bytes32, _price uint256, _weight uint256, _data string) returns()
+func (_Pxa *PxaTransactor) Mint(opts *bind.TransactOpts, _hash [32]byte, _price *big.Int, _weight *big.Int, _data string) (*types.Transaction, error) {
 	return _Pxa.contract.Transact(opts, "mint", _hash, _price, _weight, _data)
 }
 
-// Mint is a paid mutator transaction binding the contract method 0x2ed2a5c0.
+// Mint is a paid mutator transaction binding the contract method 0x5fd8cb69.
 //
-// Solidity: function mint(_hash string, _price uint256, _weight uint256, _data string) returns()
-func (_Pxa *PxaSession) Mint(_hash string, _price *big.Int, _weight *big.Int, _data string) (*types.Transaction, error) {
+// Solidity: function mint(_hash bytes32, _price uint256, _weight uint256, _data string) returns()
+func (_Pxa *PxaSession) Mint(_hash [32]byte, _price *big.Int, _weight *big.Int, _data string) (*types.Transaction, error) {
 	return _Pxa.Contract.Mint(&_Pxa.TransactOpts, _hash, _price, _weight, _data)
 }
 
-// Mint is a paid mutator transaction binding the contract method 0x2ed2a5c0.
+// Mint is a paid mutator transaction binding the contract method 0x5fd8cb69.
 //
-// Solidity: function mint(_hash string, _price uint256, _weight uint256, _data string) returns()
-func (_Pxa *PxaTransactorSession) Mint(_hash string, _price *big.Int, _weight *big.Int, _data string) (*types.Transaction, error) {
+// Solidity: function mint(_hash bytes32, _price uint256, _weight uint256, _data string) returns()
+func (_Pxa *PxaTransactorSession) Mint(_hash [32]byte, _price *big.Int, _weight *big.Int, _data string) (*types.Transaction, error) {
 	return _Pxa.Contract.Mint(&_Pxa.TransactOpts, _hash, _price, _weight, _data)
 }
 
@@ -784,6 +784,130 @@ func (_Pxa *PxaFilterer) WatchApprovalForAll(opts *bind.WatchOpts, sink chan<- *
 				// New log arrived, parse the event and forward to the user
 				event := new(PxaApprovalForAll)
 				if err := _Pxa.contract.UnpackLog(event, "ApprovalForAll", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// PxaNewAssetIterator is returned from FilterNewAsset and is used to iterate over the raw logs and unpacked data for NewAsset events raised by the Pxa contract.
+type PxaNewAssetIterator struct {
+	Event *PxaNewAsset // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *PxaNewAssetIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(PxaNewAsset)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(PxaNewAsset)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *PxaNewAssetIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *PxaNewAssetIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// PxaNewAsset represents a NewAsset event raised by the Pxa contract.
+type PxaNewAsset struct {
+	Hash    [32]byte
+	Owner   common.Address
+	TokenId *big.Int
+	Raw     types.Log // Blockchain specific contextual infos
+}
+
+// FilterNewAsset is a free log retrieval operation binding the contract event 0xc3a70059a71ca182bc9c23ad7e76e1d0e59af9a6250879f5fb33ba449165a8f6.
+//
+// Solidity: e NewAsset(_hash bytes32, _owner address, _tokenId uint256)
+func (_Pxa *PxaFilterer) FilterNewAsset(opts *bind.FilterOpts) (*PxaNewAssetIterator, error) {
+
+	logs, sub, err := _Pxa.contract.FilterLogs(opts, "NewAsset")
+	if err != nil {
+		return nil, err
+	}
+	return &PxaNewAssetIterator{contract: _Pxa.contract, event: "NewAsset", logs: logs, sub: sub}, nil
+}
+
+// WatchNewAsset is a free log subscription operation binding the contract event 0xc3a70059a71ca182bc9c23ad7e76e1d0e59af9a6250879f5fb33ba449165a8f6.
+//
+// Solidity: e NewAsset(_hash bytes32, _owner address, _tokenId uint256)
+func (_Pxa *PxaFilterer) WatchNewAsset(opts *bind.WatchOpts, sink chan<- *PxaNewAsset) (event.Subscription, error) {
+
+	logs, sub, err := _Pxa.contract.WatchLogs(opts, "NewAsset")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(PxaNewAsset)
+				if err := _Pxa.contract.UnpackLog(event, "NewAsset", log); err != nil {
 					return err
 				}
 				event.Raw = log

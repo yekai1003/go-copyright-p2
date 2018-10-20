@@ -68,7 +68,7 @@ func UploadPic(from, pass, hash, data string) error {
 	}
 	//4. 调用
 	//mint(string _hash, uint256 _price, uint256 _weight, string _data)
-	_, err = instance.Mint(auth, hash, big.NewInt(100), big.NewInt(100), data)
+	_, err = instance.Mint(auth, common.HexToHash(hash), big.NewInt(100), big.NewInt(100), data)
 	if err != nil {
 		fmt.Println("failed to Mint  ", err)
 		return err
