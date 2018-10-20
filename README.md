@@ -159,7 +159,7 @@ method | GET
 
 名称 | 说明
 ---|---
-url | /content/==picturename==
+url | /content/:title
 method | GET
 请求数据 | 无
 响应数据 | 图片二进制数据
