@@ -173,7 +173,7 @@ method | GET
 url | /auction
 method | POST
 请求数据 | json:{content_hash,percent,price,token_id}
-响应数据 | 图片二进制数据
+响应数据 | json:errno,errmsg
 
 请求数据举例：
 ```
