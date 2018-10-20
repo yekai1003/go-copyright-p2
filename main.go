@@ -40,12 +40,13 @@ func main() {
 
 	staticFile() //静态文件处理调用
 
-	EchoObj.GET("/ping", routes.PingHandler)                        //路由测试函数
-	EchoObj.POST("/account", routes.Register)                       //注册账户
-	EchoObj.GET("/session", routes.GetSession)                      //session获取
-	EchoObj.POST("/login", routes.Login)                            //登陆
-	EchoObj.POST("/content", routes.Upload)                         //上传图片
-	EchoObj.GET("/content", routes.GetContents)                     //查看当前用户图片
-	EchoObj.GET("/content/:title", routes.GetContent)               //查看单个图片
+	EchoObj.GET("/ping", routes.PingHandler)          //路由测试函数
+	EchoObj.POST("/account", routes.Register)         //注册账户
+	EchoObj.GET("/session", routes.GetSession)        //session获取
+	EchoObj.POST("/login", routes.Login)              //登陆
+	EchoObj.POST("/content", routes.Upload)           //上传图片
+	EchoObj.GET("/content", routes.GetContents)       //查看当前用户图片
+	EchoObj.GET("/content/:title", routes.GetContent) //查看单个图片
+
 	EchoObj.Logger.Fatal(EchoObj.Start(configs.Config.Common.Port)) //启动服务
 }

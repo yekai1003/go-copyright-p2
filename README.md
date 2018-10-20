@@ -170,7 +170,7 @@ method | GET
 
 名称 | 说明
 ---|---
-url | /aution
+url | /auction
 method | POST
 请求数据 | json:{content_hash,percent,price,token_id}
 响应数据 | 图片二进制数据
@@ -190,7 +190,7 @@ token_id:6
 url | /auctions
 method | GET
 请求数据 | 无
-响应数据 | json:{errno,errmsg,data:[{price,title,token_id}]}
+响应数据 | json:{errno,errmsg,data:[{price,title,token_id,content_hash}]}
 
 响应数据举例
 
