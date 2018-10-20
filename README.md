@@ -172,14 +172,15 @@ method | GET
 ---|---
 url | /aution
 method | POST
-请求数据 | json:{content_hash,percent,price}
+请求数据 | json:{content_hash,percent,price,token_id}
 响应数据 | 图片二进制数据
 
 请求数据举例：
 ```
 content_hash: "6bb7e5ec0c5f057cfdb25e54a2f0f09bca5819213761697fa57e6368eed1ec9d",
 percent: 30,
-price: 20
+price: 20,
+token_id:6
 ```
 
 ### 4.8 查看当前拍卖
@@ -189,7 +190,7 @@ price: 20
 url | /auctions
 method | GET
 请求数据 | 无
-响应数据 | json:{errno,errmsg,data;[{price,title,token_id}]}
+响应数据 | json:{errno,errmsg,data:[{price,title,token_id}]}
 
 响应数据举例
 
@@ -197,14 +198,14 @@ method | GET
 {"errno":"0","errmsg":"成功","data":[{"price":"100","title":"马夏尔和女友.jpeg","token_id":"6"}]}
 ```
 
-### 4.9 拍卖图片
+### 4.9 拍卖图片结束
 
 名称 | 说明
 ---|---
-url | /auctions
+url | /auction/bid
 method | GET
-请求数据 | 无
-响应数据 | json:{errno,errmsg,data;[{price,title,token_id}]}
+请求数据 | price,tokenid
+响应数据 | json:{errno,errmsg}
 
 
 ## 5 功能函数使用
