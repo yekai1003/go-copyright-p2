@@ -7,8 +7,8 @@ connstr = "root:root@tcp(127.0.0.1:3306)/copyright?charset=utf8"
 connstr = "http://localhost:8545"
 keydir = "/Users/yk/ethdev/ethdata/dev/data/keystore"
 foundation = "0x3bf47cd6d8587374b891545fa1f08e196bd6c135"
-pxcaddr = "0x91345d2A5662a0D7E45F3c9521A06DdAAA7e5EdD"
-pxaaddr = "0x911d6d1603ba2385a5e86726d8ab13f99430fa5d"
+pxcaddr = "0xB1819936c040F4b25E0EBdB4833fA88aF753331C"
+pxaaddr = "0x53ba32ad9de36c491b3301fa55857a3de5691f9d"
 
 
 

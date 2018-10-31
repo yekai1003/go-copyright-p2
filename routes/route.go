@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strconv"
 
 	"go-copyright-p2/dbs"
 	"go-copyright-p2/eths"
@@ -240,4 +241,156 @@ func GetContent(c echo.Context) error {
 	content.Content = "static/photo/" + content.Title
 	http.ServeFile(c.Response(), c.Request(), content.Content)
 	return nil
+}
+
+//登陆功能
+func Auction(c echo.Context) error {
+	//1. 响应数据结构初始化
+	var resp utils.Resp
+	resp.Errno = utils.RECODE_OK
+	defer utils.ResponseData(c, &resp)
+
+	//2. 解析数据
+	auction := &dbs.Auction{}
+	if err := c.Bind(auction); err != nil {
+		fmt.Println(auction)
+		resp.Errno = utils.RECODE_PARAMERR
+		return err
+	}
+
+	sess, err := session.Get("session", c)
+	if err != nil {
+		fmt.Println("failed to get session")
+		resp.Errno = utils.RECODE_SESSIONERR
+		return err
+	}
+	address, ok := sess.Values["address"].(string)
+	if address == "" || !ok {
+		fmt.Println("failed to get session,address is nil")
+		resp.Errno = utils.RECODE_SESSIONERR
+		return err
+	}
+	auction.Address = address
+	//3. 操作mysql-新增
+	//sql:insert into auction(content_hash,address,token_id,percent,price,status) values();
+	sql := fmt.Sprintf("insert into auction(content_hash,address,token_id,percent,price,status) values('%s','%s',%d,%d,%d,0)",
+		auction.ContentHash,
+		auction.Address,
+		auction.TokenID,
+		auction.Percent,
+		auction.Price,
+	)
+	fmt.Println(sql)
+	_, err = dbs.Create(sql)
+	if err != nil {
+		fmt.Println("failed to insert  auction", err)
+		resp.Errno = utils.RECODE_DBERR
+		return err
+	}
+	return nil
+}
+
+//查看拍卖
+func GetAuctions(c echo.Context) error {
+	var resp utils.Resp
+	resp.Errno = utils.RECODE_OK
+	defer utils.ResponseData(c, &resp)
+	//处理session
+	sess, err := session.Get("session", c)
+	if err != nil {
+		fmt.Println("failed to get session")
+		resp.Errno = utils.RECODE_SESSIONERR
+		return err
+	}
+	address := sess.Values["address"]
+	if address == nil {
+		fmt.Println("failed to get session,address is nil")
+		resp.Errno = utils.RECODE_SESSIONERR
+		return err
+	}
+	//查询数据库
+	sql := fmt.Sprintf("select a.content_hash,title,price,token_id from content a,auction b where a.content_hash=b.content_hash and address <> '%s' and status <> 1", address)
+	fmt.Println(sql)
+	auctions, _, err := dbs.DBQuery(sql)
+	if err != nil {
+		fmt.Println("failed to query auctions", err)
+		resp.Errno = utils.RECODE_DBERR
+		return err
+	}
+
+	resp.Data = auctions
+
+	return nil
+}
+
+//结束拍卖
+func BidAuction(c echo.Context) error {
+	//1. 组织响应数据
+	var resp utils.Resp
+	resp.Errno = utils.RECODE_OK
+	defer utils.ResponseData(c, &resp)
+	//2. 获取参数 price+tokenid
+	price := c.QueryParam("price")
+	tokenID := c.QueryParam("tokenid")
+	if price == "" || tokenID == "" {
+		fmt.Println("failed to get params ", price, tokenID)
+		resp.Errno = utils.RECODE_PARAMERR
+		return errors.New("params not found")
+	}
+	//3. session?
+	sess, err := session.Get("session", c)
+	if err != nil {
+		fmt.Println("failed to get session")
+		resp.Errno = utils.RECODE_SESSIONERR
+		return err
+	}
+	address, ok := sess.Values["address"].(string)
+	if address == "" || !ok {
+		fmt.Println("failed to get session,address is nil")
+		resp.Errno = utils.RECODE_SESSIONERR
+		return err
+	}
+	//4. 数据库操作 - 修改使拍卖结束
+	//更新操作 update auction set price=111,status=1 where token_id = 0
+	sql := fmt.Sprintf("update auction set price=%s,status=1 where token_id = %s", price, tokenID)
+	_, err = dbs.Create(sql)
+	if err != nil {
+		fmt.Println("failed to update auction", err)
+		resp.Errno = utils.RECODE_DBERR
+		return err
+	}
+	//查看weight
+	sql = fmt.Sprintf("select percent,address from auction where token_id = %s", tokenID)
+	mData, num, err := dbs.DBQuery(sql)
+	if num <= 0 || err != nil {
+		fmt.Println("failed to query auction", err)
+		resp.Errno = utils.RECODE_DBERR
+		return err
+	}
+	weight := mData[0]["percent"]
+	seller := mData[0]["address"]
+	//5. 操作以太坊- 分割资产，erc20转账
+	//EthSplitAsset(foundation, pass, buyer string, tokenID, weight int64)
+	//EthTransfer20(from, pass, seller string, price int64)
+	//启动协程
+	go func() {
+		//转换字符串为int64
+		_tokenid, _ := strconv.ParseInt(tokenID, 10, 32)
+		_price, _ := strconv.ParseInt(price, 10, 32)
+		_weight, _ := strconv.ParseInt(weight, 10, 32)
+		//资产分割
+		err := eths.EthSplitAsset(configs.Config.Eth.Foundation, "found", address, _tokenid, _weight)
+		if err != nil {
+			fmt.Println("failed to call EthSplitAsset", err)
+			return
+		}
+		//转账
+		err = eths.EthTransfer20(address, "yekai", seller, _price)
+		if err != nil {
+			fmt.Println("failed to call EthTransfer20", err)
+			return
+		}
+	}()
+	return nil
+
 }

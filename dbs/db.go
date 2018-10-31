@@ -21,6 +21,14 @@ type (
 		Content     string `json:"content"`
 		ContentHash string `json:"content_hash"`
 	}
+
+	Auction struct {
+		ContentHash string `json:"content_hash"`
+		Address     string `json:"address"`
+		TokenID     int    `json:"token_id"`
+		Percent     int    `json:"percent"`
+		Price       int    `json:"price"`
+	}
 )
 
 //数据库连接的全局变量
